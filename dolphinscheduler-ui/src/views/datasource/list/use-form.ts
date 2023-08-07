@@ -196,6 +196,11 @@ export const datasourceType: IDataBaseOptionKeys = {
     label: 'POSTGRESQL',
     defaultPort: 5432
   },
+  HIGHGO: {
+    value: 'HIGHGO',
+    label: 'HIGHGO',
+    defaultPort: 5866
+  },
   HIVE: {
     value: 'HIVE',
     label: 'HIVE/IMPALA',
