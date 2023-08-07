@@ -15,17 +15,27 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.plugin.datasource.postgresql;
+package org.apache.dolphinscheduler.plugin.datasource.highgo.param;
 
-import org.apache.dolphinscheduler.spi.datasource.BaseConnectionParam;
-import org.apache.dolphinscheduler.spi.datasource.DataSourceChannel;
-import org.apache.dolphinscheduler.spi.datasource.DataSourceClient;
+import org.apache.dolphinscheduler.plugin.datasource.api.datasource.BaseDataSourceParamDTO;
 import org.apache.dolphinscheduler.spi.enums.DbType;
 
-public class PostgreSQLDataSourceChannel implements DataSourceChannel {
+public class PostgreSQLDataSourceParamDTO extends BaseDataSourceParamDTO {
 
     @Override
-    public DataSourceClient createDataSourceClient(BaseConnectionParam baseConnectionParam, DbType dbType) {
-        return new PostgreSQLDataSourceClient(baseConnectionParam, dbType);
+    public String toString() {
+        return "PostgreSQLDataSourceParamDTO{"
+                + "host='" + host + '\''
+                + ", port=" + port
+                + ", database='" + database + '\''
+                + ", userName='" + userName + '\''
+                + ", password='" + password + '\''
+                + ", other='" + other + '\''
+                + '}';
+    }
+
+    @Override
+    public DbType getType() {
+        return DbType.POSTGRESQL;
     }
 }

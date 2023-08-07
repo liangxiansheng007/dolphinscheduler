@@ -15,22 +15,19 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.plugin.datasource.Highgo;
+package org.apache.dolphinscheduler.plugin.datasource.highgo;
 
 import org.apache.dolphinscheduler.spi.datasource.DataSourceChannel;
-import org.apache.dolphinscheduler.spi.datasource.DataSourceChannelFactory;
 
-import com.google.auto.service.AutoService;
+import org.junit.Assert;
+import org.junit.Test;
 
-@AutoService(DataSourceChannelFactory.class)
-public class HighgoDataSourceChannelFactory implements DataSourceChannelFactory {
-    @Override
-    public String getName() {
-        return "Highgo";
-    }
+public class PostgreSQLDataSourceChannelFactoryTest {
 
-    @Override
-    public DataSourceChannel create() {
-        return new HighgoDataSourceChannel();
+    @Test
+    public void testCreate() {
+        PostgreSQLDataSourceChannelFactory sourceChannelFactory = new PostgreSQLDataSourceChannelFactory();
+        DataSourceChannel dataSourceChannel = sourceChannelFactory.create();
+        Assert.assertNotNull(dataSourceChannel);
     }
 }

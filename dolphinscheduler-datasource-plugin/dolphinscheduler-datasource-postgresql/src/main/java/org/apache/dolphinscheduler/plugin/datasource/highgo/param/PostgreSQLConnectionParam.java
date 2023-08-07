@@ -15,19 +15,24 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.plugin.datasource.postgresql;
+package org.apache.dolphinscheduler.plugin.datasource.highgo.param;
 
-import org.apache.dolphinscheduler.spi.datasource.DataSourceChannel;
+import org.apache.dolphinscheduler.spi.datasource.BaseConnectionParam;
 
-import org.junit.Assert;
-import org.junit.Test;
+public class PostgreSQLConnectionParam extends BaseConnectionParam {
 
-public class PostgreSQLDataSourceChannelFactoryTest {
-
-    @Test
-    public void testCreate() {
-        PostgreSQLDataSourceChannelFactory sourceChannelFactory = new PostgreSQLDataSourceChannelFactory();
-        DataSourceChannel dataSourceChannel = sourceChannelFactory.create();
-        Assert.assertNotNull(dataSourceChannel);
+    @Override
+    public String toString() {
+        return "PostgreSQLConnectionParam{"
+                + "user='" + user + '\''
+                + ", password='" + password + '\''
+                + ", address='" + address + '\''
+                + ", database='" + database + '\''
+                + ", jdbcUrl='" + jdbcUrl + '\''
+                + ", driverLocation='" + driverLocation + '\''
+                + ", driverClassName='" + driverClassName + '\''
+                + ", validationQuery='" + validationQuery + '\''
+                + ", other='" + other + '\''
+                + '}';
     }
 }

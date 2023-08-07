@@ -15,17 +15,23 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.plugin.datasource.Highgo;
+package org.apache.dolphinscheduler.plugin.datasource.highgo;
 
-import org.apache.dolphinscheduler.spi.datasource.BaseConnectionParam;
 import org.apache.dolphinscheduler.spi.datasource.DataSourceChannel;
-import org.apache.dolphinscheduler.spi.datasource.DataSourceClient;
-import org.apache.dolphinscheduler.spi.enums.DbType;
+import org.apache.dolphinscheduler.spi.datasource.DataSourceChannelFactory;
 
-public class HighgoDataSourceChannel implements DataSourceChannel {
+import com.google.auto.service.AutoService;
+
+@AutoService(DataSourceChannelFactory.class)
+public class HighgoDataSourceChannelFactory implements DataSourceChannelFactory {
 
     @Override
-    public DataSourceClient createDataSourceClient(BaseConnectionParam baseConnectionParam, DbType dbType) {
-        return new HighgoDataSourceClient(baseConnectionParam, dbType);
+    public String getName() {
+        return "Highgo";
+    }
+
+    @Override
+    public DataSourceChannel create() {
+        return new HighgoDataSourceChannel();
     }
 }

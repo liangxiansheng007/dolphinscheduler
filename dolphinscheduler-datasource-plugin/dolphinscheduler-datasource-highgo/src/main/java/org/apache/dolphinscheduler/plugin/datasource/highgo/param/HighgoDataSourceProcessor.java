@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.plugin.datasource.Highgo.param;
+package org.apache.dolphinscheduler.plugin.datasource.highgo.param;
 
 import org.apache.dolphinscheduler.common.constants.Constants;
 import org.apache.dolphinscheduler.common.constants.DataSourceConstants;
@@ -50,8 +50,7 @@ public class HighgoDataSourceProcessor extends AbstractDataSourceProcessor {
     @Override
     public BaseDataSourceParamDTO createDatasourceParamDTO(String connectionJson) {
         HighgoConnectionParam connectionParams = (HighgoConnectionParam) createConnectionParams(connectionJson);
-        HighgoDataSourceParamDTO
-                HighgoDatasourceParamDTO = new HighgoDataSourceParamDTO();
+        HighgoDataSourceParamDTO HighgoDatasourceParamDTO = new HighgoDataSourceParamDTO();
         HighgoDatasourceParamDTO.setDatabase(connectionParams.getDatabase());
         HighgoDatasourceParamDTO.setUserName(connectionParams.getUser());
         HighgoDatasourceParamDTO.setOther(parseOther(connectionParams.getOther()));
@@ -68,7 +67,7 @@ public class HighgoDataSourceProcessor extends AbstractDataSourceProcessor {
     @Override
     public BaseConnectionParam createConnectionParams(BaseDataSourceParamDTO datasourceParam) {
         HighgoDataSourceParamDTO HighgoParam = (HighgoDataSourceParamDTO) datasourceParam;
-        String address = String.format("%s%s:%s", DataSourceConstants.JDBC_Highgo, HighgoParam.getHost(),
+        String address = String.format("%s%s:%s", DataSourceConstants.JDBC_HIGHGO, HighgoParam.getHost(),
                 HighgoParam.getPort());
         String jdbcUrl = String.format("%s/%s", address, HighgoParam.getDatabase());
 
@@ -93,12 +92,12 @@ public class HighgoDataSourceProcessor extends AbstractDataSourceProcessor {
 
     @Override
     public String getDatasourceDriver() {
-        return DataSourceConstants.ORG_Highgo_DRIVER;
+        return DataSourceConstants.COM_HIGHGO_DRIVER;
     }
 
     @Override
     public String getValidationQuery() {
-        return DataSourceConstants.Highgo_VALIDATION_QUERY;
+        return DataSourceConstants.HIGHGO_VALIDATION_QUERY;
     }
 
     @Override
@@ -120,7 +119,7 @@ public class HighgoDataSourceProcessor extends AbstractDataSourceProcessor {
 
     @Override
     public DbType getDbType() {
-        return DbType.Highgo;
+        return DbType.HIGHGO;
     }
 
     @Override

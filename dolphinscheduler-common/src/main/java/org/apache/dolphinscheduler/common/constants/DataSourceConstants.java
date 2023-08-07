@@ -25,6 +25,8 @@ public class DataSourceConstants {
      * driver
      */
     public static final String ORG_POSTGRESQL_DRIVER = "org.postgresql.Driver";
+
+    public static final String COM_HIGHGO_DRIVER = "com.highgo.jdbc.Driver";
     public static final String COM_MYSQL_CJ_JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
     public static final String ORG_APACHE_HIVE_JDBC_HIVE_DRIVER = "org.apache.hive.jdbc.HiveDriver";
@@ -40,6 +42,8 @@ public class DataSourceConstants {
      * validation Query
      */
     public static final String POSTGRESQL_VALIDATION_QUERY = "select version()";
+
+    public static final String HIGHGO_VALIDATION_QUERY = "select version()";
     public static final String MYSQL_VALIDATION_QUERY = "select 1";
     public static final String HIVE_VALIDATION_QUERY = "select 1";
     public static final String CLICKHOUSE_VALIDATION_QUERY = "select 1";
@@ -55,6 +59,8 @@ public class DataSourceConstants {
      */
     public static final String JDBC_MYSQL = "jdbc:mysql://";
     public static final String JDBC_POSTGRESQL = "jdbc:postgresql://";
+
+    public static final String JDBC_HIGHGO = "jdbc:highgo://";
     public static final String JDBC_HIVE_2 = "jdbc:hive2://";
     public static final String JDBC_CLICKHOUSE = "jdbc:clickhouse://";
     public static final String JDBC_ORACLE_SID = "jdbc:oracle:thin:@";

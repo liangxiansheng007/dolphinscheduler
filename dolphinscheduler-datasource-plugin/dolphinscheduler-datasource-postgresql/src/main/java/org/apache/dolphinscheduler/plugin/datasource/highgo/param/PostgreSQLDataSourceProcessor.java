@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.plugin.datasource.postgresql.param;
+package org.apache.dolphinscheduler.plugin.datasource.highgo.param;
 
 import org.apache.dolphinscheduler.common.constants.Constants;
 import org.apache.dolphinscheduler.common.constants.DataSourceConstants;
@@ -50,8 +50,7 @@ public class PostgreSQLDataSourceProcessor extends AbstractDataSourceProcessor {
     @Override
     public BaseDataSourceParamDTO createDatasourceParamDTO(String connectionJson) {
         PostgreSQLConnectionParam connectionParams = (PostgreSQLConnectionParam) createConnectionParams(connectionJson);
-        PostgreSQLDataSourceParamDTO
-                postgreSqlDatasourceParamDTO = new PostgreSQLDataSourceParamDTO();
+        PostgreSQLDataSourceParamDTO postgreSqlDatasourceParamDTO = new PostgreSQLDataSourceParamDTO();
         postgreSqlDatasourceParamDTO.setDatabase(connectionParams.getDatabase());
         postgreSqlDatasourceParamDTO.setUserName(connectionParams.getUser());
         postgreSqlDatasourceParamDTO.setOther(parseOther(connectionParams.getOther()));
@@ -115,7 +114,8 @@ public class PostgreSQLDataSourceProcessor extends AbstractDataSourceProcessor {
         PostgreSQLConnectionParam postgreSqlConnectionParam = (PostgreSQLConnectionParam) connectionParam;
         Class.forName(getDatasourceDriver());
         return DriverManager.getConnection(getJdbcUrl(postgreSqlConnectionParam),
-                postgreSqlConnectionParam.getUser(), PasswordUtils.decodePassword(postgreSqlConnectionParam.getPassword()));
+                postgreSqlConnectionParam.getUser(),
+                PasswordUtils.decodePassword(postgreSqlConnectionParam.getPassword()));
     }
 
     @Override

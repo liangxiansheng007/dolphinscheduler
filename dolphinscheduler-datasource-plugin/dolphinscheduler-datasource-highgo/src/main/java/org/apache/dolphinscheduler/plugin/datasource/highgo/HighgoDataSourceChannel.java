@@ -15,19 +15,18 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.plugin.datasource.postgresql;
+package org.apache.dolphinscheduler.plugin.datasource.highgo;
 
+import org.apache.dolphinscheduler.spi.datasource.BaseConnectionParam;
 import org.apache.dolphinscheduler.spi.datasource.DataSourceChannel;
+import org.apache.dolphinscheduler.spi.datasource.DataSourceClient;
+import org.apache.dolphinscheduler.spi.enums.DbType;
 
-import org.junit.Assert;
-import org.junit.Test;
+public class HighgoDataSourceChannel implements DataSourceChannel {
 
-public class PostgreSQLDataSourceChannelFactoryTest {
-
-    @Test
-    public void testCreate() {
-        PostgreSQLDataSourceChannelFactory sourceChannelFactory = new PostgreSQLDataSourceChannelFactory();
-        DataSourceChannel dataSourceChannel = sourceChannelFactory.create();
-        Assert.assertNotNull(dataSourceChannel);
+    @Override
+    public DataSourceClient createDataSourceClient(BaseConnectionParam baseConnectionParam, DbType dbType) {
+        return new org.apache.dolphinscheduler.plugin.datasource.Highgo.HighgoDataSourceClient(baseConnectionParam,
+                dbType);
     }
 }

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.plugin.datasource.postgresql;
+package org.apache.dolphinscheduler.plugin.datasource.highgo;
 
 import org.apache.dolphinscheduler.spi.datasource.DataSourceChannel;
 import org.apache.dolphinscheduler.spi.datasource.DataSourceChannelFactory;
@@ -24,6 +24,7 @@ import com.google.auto.service.AutoService;
 
 @AutoService(DataSourceChannelFactory.class)
 public class PostgreSQLDataSourceChannelFactory implements DataSourceChannelFactory {
+
     @Override
     public String getName() {
         return "postgresql";
