@@ -91,8 +91,8 @@ public class MasterServer implements IStoppable {
         this.taskPluginManager.loadPlugin();
 
         // self tolerant
-        this.masterRegistryClient.start();
-        this.masterRegistryClient.setRegistryStoppable(this);
+//        this.masterRegistryClient.start();
+//        this.masterRegistryClient.setRegistryStoppable(this);
 
         this.masterSchedulerBootstrap.init();
         this.masterSchedulerBootstrap.start();

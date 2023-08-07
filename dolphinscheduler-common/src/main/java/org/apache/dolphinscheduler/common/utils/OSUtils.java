@@ -58,6 +58,8 @@ public class OSUtils {
     private static final SystemInfo SI = new SystemInfo();
     public static final String TWO_DECIMAL = "0.00";
 
+    public static String isOffInLinux = System.getenv("IS_OFF_IN_LINUX");
+
     /**
      * return -1 when the function can not get hardware env info
      * e.g {@link OSUtils#loadAverage()} {@link OSUtils#cpuUsage()}
@@ -86,6 +88,12 @@ public class OSUtils {
      * @return percent %
      */
     public static double memoryUsage() {
+
+        if("true".equals(isOffInLinux)){
+            logger.warn(" #####  OSUtils memoryUsage is invlidate, isOffInLinux value is :",isOffInLinux);
+            return 0.5;
+        }
+
         GlobalMemory memory = hal.getMemory();
         double memoryUsage = (memory.getTotal() - memory.getAvailable()) * 1.0 / memory.getTotal();
 
@@ -101,6 +109,12 @@ public class OSUtils {
      * @return disk free size, unit: GB
      */
     public static double diskAvailable() {
+
+        if("true".equals(isOffInLinux)){
+            logger.warn(" #####  OSUtils diskAvailable is invlidate, isOffInLinux value is :",isOffInLinux);
+            return 0.5;
+        }
+
         File file = new File(".");
         long freeSpace = file.getFreeSpace(); // unallocated / free disk space in bytes.
 
@@ -119,6 +133,10 @@ public class OSUtils {
      * @return available Physical Memory Size, unit: G
      */
     public static double availablePhysicalMemorySize() {
+        if("true".equals(isOffInLinux)){
+            logger.warn(" #####  OSUtils availablePhysicalMemorySize is invlidate, isOffInLinux value is :",isOffInLinux);
+            return 0.5;
+        }
         GlobalMemory memory = hal.getMemory();
         double availablePhysicalMemorySize = memory.getAvailable() / 1024.0 / 1024 / 1024;
 
@@ -133,6 +151,12 @@ public class OSUtils {
      * @return load average
      */
     public static double loadAverage() {
+
+        if("true".equals(isOffInLinux)){
+            logger.warn(" #####  OSUtils loadAverage is invlidate, isOffInLinux value is :",isOffInLinux);
+            return 0.5;
+        }
+
         double loadAverage;
         try {
             OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
@@ -155,6 +179,12 @@ public class OSUtils {
      * @return cpu usage
      */
     public static double cpuUsage() {
+
+        if("true".equals(isOffInLinux)){
+            logger.warn(" #####  OSUtils cpuUsage is invlidate, isOffInLinux value is :",isOffInLinux);
+            return 0.5;
+        }
+
         CentralProcessor processor = hal.getProcessor();
 
         // Check if > ~ 0.95 seconds since last tick count.
@@ -176,6 +206,14 @@ public class OSUtils {
     }
 
     public static List<String> getUserList() {
+
+        if("true".equals(isOffInLinux)){
+            logger.warn(" #####  OSUtils getUserList is invlidate, isOffInLinux value is :",isOffInLinux);
+            List<String> userList = new ArrayList<>();
+            userList.add("root");
+            return userList;
+        }
+
         try {
             if (SystemUtils.IS_OS_MAC) {
                 return getUserListFromMac();
@@ -275,6 +313,12 @@ public class OSUtils {
      * @return boolean
      */
     public static boolean existTenantCodeInLinux(String tenantCode) {
+
+        if("true".equals(isOffInLinux)){
+            logger.warn(" #####  OSUtils existTenantCodeInLinux is invlidate, isOffInLinux value is :",isOffInLinux);
+            return true;
+        }
+
         try {
             String result = exeCmd("id " + tenantCode);
             if (!StringUtils.isEmpty(result)) {
@@ -400,6 +444,13 @@ public class OSUtils {
                 return group;
             }
         } else {
+
+            if("true".equals(isOffInLinux)){
+                logger.warn(" #####  OSUtils getGroup is invlidate, isOffInLinux value is :",isOffInLinux);
+                return "root";
+            }
+
+
             String result = exeCmd("groups");
             if (!StringUtils.isEmpty(result)) {
                 String[] groupInfo = result.split(" ");
