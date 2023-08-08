@@ -17,13 +17,13 @@
 
 package org.apache.dolphinscheduler.plugin.datasource.api.datasource;
 
+import org.apache.dolphinscheduler.spi.datasource.BaseConnectionParam;
 import org.apache.dolphinscheduler.spi.datasource.ConnectionParam;
 import org.apache.dolphinscheduler.spi.enums.DbType;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 public interface DataSourceProcessor {
 
     /**
@@ -33,7 +33,6 @@ public interface DataSourceProcessor {
      * @return {@link BaseDataSourceParamDTO}
      */
     BaseDataSourceParamDTO castDatasourceParamDTO(String paramJson);
-
 
     /**
      * check datasource param is valid

@@ -27,7 +27,7 @@ public class HighgoDataSourceChannelFactory implements DataSourceChannelFactory 
 
     @Override
     public String getName() {
-        return "Highgo";
+        return "highgo";
     }
 
     @Override

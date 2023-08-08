@@ -89,8 +89,8 @@ public class OSUtils {
      */
     public static double memoryUsage() {
 
-        if("true".equals(isOffInLinux)){
-            logger.warn(" #####  OSUtils memoryUsage is invlidate, isOffInLinux value is :",isOffInLinux);
+        if ("true".equals(isOffInLinux)) {
+            logger.warn(" #####  OSUtils memoryUsage is invlidate, isOffInLinux value is {}:", isOffInLinux);
             return 0.5;
         }
 
@@ -110,8 +110,8 @@ public class OSUtils {
      */
     public static double diskAvailable() {
 
-        if("true".equals(isOffInLinux)){
-            logger.warn(" #####  OSUtils diskAvailable is invlidate, isOffInLinux value is :",isOffInLinux);
+        if ("true".equals(isOffInLinux)) {
+            logger.warn(" #####  OSUtils diskAvailable is invlidate, isOffInLinux value is {}:", isOffInLinux);
             return 0.5;
         }
 
@@ -133,8 +133,9 @@ public class OSUtils {
      * @return available Physical Memory Size, unit: G
      */
     public static double availablePhysicalMemorySize() {
-        if("true".equals(isOffInLinux)){
-            logger.warn(" #####  OSUtils availablePhysicalMemorySize is invlidate, isOffInLinux value is :",isOffInLinux);
+        if ("true".equals(isOffInLinux)) {
+            logger.warn(" #####  OSUtils availablePhysicalMemorySize is invlidate, isOffInLinux value is {}:",
+                    isOffInLinux);
             return 0.5;
         }
         GlobalMemory memory = hal.getMemory();
@@ -152,8 +153,8 @@ public class OSUtils {
      */
     public static double loadAverage() {
 
-        if("true".equals(isOffInLinux)){
-            logger.warn(" #####  OSUtils loadAverage is invlidate, isOffInLinux value is :",isOffInLinux);
+        if ("true".equals(isOffInLinux)) {
+            logger.warn(" #####  OSUtils loadAverage is invlidate, isOffInLinux value is {}:", isOffInLinux);
             return 0.5;
         }
 
@@ -180,8 +181,8 @@ public class OSUtils {
      */
     public static double cpuUsage() {
 
-        if("true".equals(isOffInLinux)){
-            logger.warn(" #####  OSUtils cpuUsage is invlidate, isOffInLinux value is :",isOffInLinux);
+        if ("true".equals(isOffInLinux)) {
+            logger.warn(" #####  OSUtils cpuUsage is invlidate, isOffInLinux value is {}:", isOffInLinux);
             return 0.5;
         }
 
@@ -207,8 +208,8 @@ public class OSUtils {
 
     public static List<String> getUserList() {
 
-        if("true".equals(isOffInLinux)){
-            logger.warn(" #####  OSUtils getUserList is invlidate, isOffInLinux value is :",isOffInLinux);
+        if ("true".equals(isOffInLinux)) {
+            logger.warn(" #####  OSUtils getUserList is invlidate, isOffInLinux value is {}:", isOffInLinux);
             List<String> userList = new ArrayList<>();
             userList.add("root");
             return userList;
@@ -314,8 +315,8 @@ public class OSUtils {
      */
     public static boolean existTenantCodeInLinux(String tenantCode) {
 
-        if("true".equals(isOffInLinux)){
-            logger.warn(" #####  OSUtils existTenantCodeInLinux is invlidate, isOffInLinux value is :",isOffInLinux);
+        if ("true".equals(isOffInLinux)) {
+            logger.warn(" #####  OSUtils existTenantCodeInLinux is invlidate, isOffInLinux value is {}:", isOffInLinux);
             return true;
         }
 
@@ -445,11 +446,10 @@ public class OSUtils {
             }
         } else {
 
-            if("true".equals(isOffInLinux)){
-                logger.warn(" #####  OSUtils getGroup is invlidate, isOffInLinux value is :",isOffInLinux);
+            if ("true".equals(isOffInLinux)) {
+                logger.warn(" #####  OSUtils getGroup is invlidate, isOffInLinux value is {}:", isOffInLinux);
                 return "root";
             }
-
 
             String result = exeCmd("groups");
             if (!StringUtils.isEmpty(result)) {

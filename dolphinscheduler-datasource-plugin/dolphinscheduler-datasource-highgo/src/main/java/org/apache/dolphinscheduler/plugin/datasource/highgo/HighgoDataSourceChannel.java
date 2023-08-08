@@ -26,7 +26,7 @@ public class HighgoDataSourceChannel implements DataSourceChannel {
 
     @Override
     public DataSourceClient createDataSourceClient(BaseConnectionParam baseConnectionParam, DbType dbType) {
-        return new org.apache.dolphinscheduler.plugin.datasource.Highgo.HighgoDataSourceClient(baseConnectionParam,
+        return new org.apache.dolphinscheduler.plugin.datasource.highgo.HighgoDataSourceClient(baseConnectionParam,
                 dbType);
     }
 }

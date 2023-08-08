@@ -49,8 +49,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
-import sun.security.krb5.Config;
-
 public class HiveDataSourceClient extends CommonDataSourceClient {
 
     private static final Logger logger = LoggerFactory.getLogger(HiveDataSourceClient.class);
@@ -153,7 +151,8 @@ public class HiveDataSourceClient extends CommonDataSourceClient {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-            boolean kerberosStartupState = PropertyUtils.getBoolean(HADOOP_SECURITY_AUTHENTICATION_STARTUP_STATE, false);
+            boolean kerberosStartupState =
+                    PropertyUtils.getBoolean(HADOOP_SECURITY_AUTHENTICATION_STARTUP_STATE, false);
             if (retryGetConnection && kerberosStartupState) {
                 retryGetConnection = false;
                 createUserGroupInformation(baseConnectionParam.getUser());
