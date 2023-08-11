@@ -147,6 +147,45 @@ public abstract class AbstractCommandExecutor {
     }
 
     /**
+     * buildProcessByCommandLine
+     * @param commandLine
+     * @throws IOException
+     */
+    private void buildProcessByCommandLine(String commandLine) throws IOException {
+        // setting up user to run commands
+        List<String> command = new LinkedList<>();
+
+        // init process builder
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", commandLine);
+        // setting up a working directory
+        processBuilder.directory(new File(taskRequest.getExecutePath()));
+        // merge error information to standard output stream
+        processBuilder.redirectErrorStream(true);
+
+        // if sudo.enable=true,setting up user to run commands
+        // if (OSUtils.isSudoEnable()) {
+        // if (SystemUtils.IS_OS_LINUX
+        // && PropertyUtils.getBoolean(AbstractCommandExecutorConstants.TASK_RESOURCE_LIMIT_STATE)) {
+        // generateCgroupCommand(command);
+        // } else {
+        // command.add("sudo");
+        // command.add("-u");
+        // command.add(taskRequest.getTenantCode());
+        // command.add("-E");
+        // }
+        // }
+        // command.add(commandInterpreter());
+        // command.addAll(Collections.emptyList());
+        // command.add(commandLine);
+        //
+        // // setting commands
+        // processBuilder.command(command);
+        process = processBuilder.start();
+
+        printCommand(command);
+    }
+
+    /**
      * generate systemd command.
      * eg: sudo systemd-run -q --scope -p CPUQuota=100% -p MemoryMax=200M --uid=root
      * @param command command
@@ -198,7 +237,6 @@ public abstract class AbstractCommandExecutor {
 
         // build process
         buildProcess(commandFilePath);
-
         // parse process output
         parseProcessOutput(process);
 
@@ -239,7 +277,72 @@ public abstract class AbstractCommandExecutor {
         int exitCode = process.exitValue();
         String exitLogMessage = EXIT_CODE_KILL == exitCode ? "process has killed." : "process has exited.";
         logger.info(exitLogMessage
-                + " execute path:{}, processId:{} ,exitStatusCode:{} ,processWaitForStatus:{} ,processExitValue:{}",
+                        + " execute path:{}, processId:{} ,exitStatusCode:{} ,processWaitForStatus:{} ,processExitValue:{}",
+                taskRequest.getExecutePath(), processId, result.getExitStatusCode(), status, exitCode);
+        return result;
+
+    }
+
+    public TaskResponse run4CommandLine(String execCommand) throws IOException, InterruptedException {
+        TaskResponse result = new TaskResponse();
+        int taskInstanceId = taskRequest.getTaskInstanceId();
+        if (null == TaskExecutionContextCacheManager.getByTaskInstanceId(taskInstanceId)) {
+            result.setExitStatusCode(EXIT_CODE_KILL);
+            return result;
+        }
+        if (StringUtils.isEmpty(execCommand)) {
+            TaskExecutionContextCacheManager.removeByTaskInstanceId(taskInstanceId);
+            return result;
+        }
+
+        String commandFilePath = buildCommandFilePath();
+
+        // create command file if not exists
+        createCommandFileIfNotExists(execCommand, commandFilePath);
+
+        // build process
+        buildProcessByCommandLine(execCommand);
+        // parse process output
+        parseProcessOutput(process);
+
+        int processId = getProcessId(process);
+
+        result.setProcessId(processId);
+
+        // cache processId
+        taskRequest.setProcessId(processId);
+        boolean updateTaskExecutionContextStatus =
+                TaskExecutionContextCacheManager.updateTaskExecutionContext(taskRequest);
+        if (Boolean.FALSE.equals(updateTaskExecutionContextStatus)) {
+            ProcessUtils.kill(taskRequest);
+            result.setExitStatusCode(EXIT_CODE_KILL);
+            return result;
+        }
+        // print process id
+        logger.info("process start, process id is: {}", processId);
+
+        // if timeout occurs, exit directly
+        long remainTime = getRemainTime();
+
+        // waiting for the run to finish
+        boolean status = process.waitFor(remainTime, TimeUnit.SECONDS);
+
+        // if SHELL task exit
+        if (status) {
+
+            // SHELL task state
+            result.setExitStatusCode(process.exitValue());
+
+        } else {
+            logger.error("process has failure, the task timeout configuration value is:{}, ready to kill ...",
+                    taskRequest.getTaskTimeout());
+            ProcessUtils.kill(taskRequest);
+            result.setExitStatusCode(EXIT_CODE_FAILURE);
+        }
+        int exitCode = process.exitValue();
+        String exitLogMessage = EXIT_CODE_KILL == exitCode ? "process has killed." : "process has exited.";
+        logger.info(exitLogMessage
+                        + " execute path:{}, processId:{} ,exitStatusCode:{} ,processWaitForStatus:{} ,processExitValue:{}",
                 taskRequest.getExecutePath(), processId, result.getExitStatusCode(), status, exitCode);
         return result;
 
