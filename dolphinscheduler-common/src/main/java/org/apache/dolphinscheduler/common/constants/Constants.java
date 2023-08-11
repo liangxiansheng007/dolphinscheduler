@@ -795,4 +795,6 @@ public final class Constants {
     public static final String KERBEROS_KRB5_CONF_PATH = "javaSecurityKrb5Conf";
     public static final String KERBEROS_KEY_TAB_USERNAME = "loginUserKeytabUsername";
     public static final String KERBEROS_KEY_TAB_PATH = "loginUserKeytabPath";
+
+    public static final String SECURITY_MODEL_ON_LINUX = System.getenv("SECURITY_MODEL_ON_LINUX");
 }

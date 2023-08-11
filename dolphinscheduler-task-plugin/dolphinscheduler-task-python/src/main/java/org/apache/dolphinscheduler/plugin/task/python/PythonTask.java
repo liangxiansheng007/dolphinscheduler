@@ -58,7 +58,7 @@ public class PythonTask extends AbstractTask {
 
     protected TaskExecutionContext taskRequest;
 
-    protected static final String PYTHON_HOME = "PYTHON_HOME";
+    protected static final String PYTHON_HOME = System.getenv("PYTHON_HOME");
 
     private static final String DEFAULT_PYTHON_VERSION = "python";
 
@@ -234,9 +234,9 @@ public class PythonTask extends AbstractTask {
     protected String buildPythonExecuteCommand(String pythonFile) {
         Preconditions.checkNotNull(pythonFile, "Python file cannot be null");
 
-        String pythonHome = String.format("${%s}", PYTHON_HOME);
+        //String pythonHome = String.format("${%s}", PYTHON_HOME);
 
-        return pythonHome + " " + pythonFile;
+        return PYTHON_HOME + " " + pythonFile;
     }
 
 }

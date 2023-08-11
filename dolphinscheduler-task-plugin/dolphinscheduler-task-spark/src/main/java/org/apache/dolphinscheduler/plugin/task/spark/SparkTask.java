@@ -52,6 +52,10 @@ public class SparkTask extends AbstractYarnTask {
      */
     private SparkParameters sparkParameters;
 
+    private static String SPARK_HOME1 = System.getenv("SPARK_HOME1");
+
+    private static String SPARK_HOME2 = System.getenv("SPARK_HOME2");
+
     /**
      * taskExecutionContext
      */
@@ -105,11 +109,22 @@ public class SparkTask extends AbstractYarnTask {
             sparkCommand = SparkCommand.SPARK1SUBMIT.getCommand();
         }
 
+
+
         // If the programType is SQL, execute bin/spark-sql
         if (sparkParameters.getProgramType() == ProgramType.SQL) {
             sparkCommand = SparkCommand.SPARK2SQL.getCommand();
             if (SparkCommand.SPARK1SQL.getSparkVersion().name().equals(sparkParameters.getSparkVersion())) {
                 sparkCommand = SparkCommand.SPARK1SQL.getCommand();
+            }
+        }
+
+        // 替换${SPARK_HOME}环境变量
+        if(StringUtils.isNotBlank(sparkCommand)){
+            if(sparkCommand.contains("${SPARK_HOME2}")){
+                sparkCommand.replace("${SPARK_HOME2}",SPARK_HOME2);
+            }else{
+                sparkCommand.replace("${SPARK_HOME1}",SPARK_HOME1);
             }
         }
 

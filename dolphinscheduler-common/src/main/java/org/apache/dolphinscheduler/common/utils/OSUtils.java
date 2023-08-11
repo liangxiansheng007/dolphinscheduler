@@ -58,7 +58,7 @@ public class OSUtils {
     private static final SystemInfo SI = new SystemInfo();
     public static final String TWO_DECIMAL = "0.00";
 
-    public static String isOffInLinux = System.getenv("IS_OFF_IN_LINUX");
+    public static String isOffInLinux = Constants.SECURITY_MODEL_ON_LINUX;
 
     /**
      * return -1 when the function can not get hardware env info

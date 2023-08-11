@@ -21,6 +21,7 @@ import static org.apache.dolphinscheduler.plugin.task.api.ProcessUtils.getPidsSt
 import static org.apache.dolphinscheduler.plugin.task.api.TaskConstants.EXIT_CODE_FAILURE;
 import static org.apache.dolphinscheduler.plugin.task.api.TaskConstants.EXIT_CODE_KILL;
 
+import org.apache.dolphinscheduler.common.constants.Constants;
 import org.apache.dolphinscheduler.common.utils.PropertyUtils;
 import org.apache.dolphinscheduler.plugin.task.api.model.TaskResponse;
 import org.apache.dolphinscheduler.plugin.task.api.utils.AbstractCommandExecutorConstants;
@@ -219,6 +220,11 @@ public abstract class AbstractCommandExecutor {
     }
 
     public TaskResponse run(String execCommand) throws IOException, InterruptedException {
+
+        if(StringUtils.equals("true", Constants.SECURITY_MODEL_ON_LINUX)){
+          return run4CommandLine(execCommand);
+        }
+
         TaskResponse result = new TaskResponse();
         int taskInstanceId = taskRequest.getTaskInstanceId();
         if (null == TaskExecutionContextCacheManager.getByTaskInstanceId(taskInstanceId)) {
@@ -283,7 +289,7 @@ public abstract class AbstractCommandExecutor {
 
     }
 
-    public TaskResponse run4CommandLine(String execCommand) throws IOException, InterruptedException {
+    private TaskResponse run4CommandLine(String execCommand) throws IOException, InterruptedException {
         TaskResponse result = new TaskResponse();
         int taskInstanceId = taskRequest.getTaskInstanceId();
         if (null == TaskExecutionContextCacheManager.getByTaskInstanceId(taskInstanceId)) {
