@@ -78,7 +78,8 @@ const login = defineComponent({
         </div>
         <div class={styles['login-model']}>
           <div class={styles.logo}>
-            <div class={styles['logo-img']} />
+            {/* <div class={styles['logo-img']} /> */}
+            <h1>灯塔大数据调度中心</h1>
           </div>
           <div class={styles['form-model']}>
             <NForm rules={this.rules} ref='loginFormRef'>

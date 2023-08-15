@@ -19,13 +19,16 @@ const light = {
     bodyColor: '#f8f8fc',
 
     /**************** Brand color */
-    primaryColor: '#1890ff',
-    primaryColorHover: '#40a9ff',
-    primaryColorPressed: '#096dd9',
-    primaryColorSuppl: '#1890ff',
-
+    primaryColor: '#C50405',
+    primaryColorHover: '#ef2b2d',
+    primaryColorPressed: '#e27071',
+    primaryColorSuppl: '#C50405',
+    
     /**************** Function of color */
-    infoColor: '#1890ff',
+    infoColor: '#C50405',
+    infoColorHover: '#ef2b2d',
+    infoColorPressed: '#e27071',
+    infoColorSuppl: '#C50405',
     successColor: '#52c41a',
     warningColor: '#faad14',
     errorColor: '#ff4d4f'

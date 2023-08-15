@@ -77,9 +77,9 @@ const Navbar = defineComponent({
           />
         </div>
         <div class={styles.settings}>
-          <Theme />
-          <Locales localesOptions={this.localesOptions} />
-          <Timezone timezoneOptions={this.timezoneOptions} />
+          {/* <Theme /> */}
+          {/* <Locales localesOptions={this.localesOptions} /> */}
+          {/* <Timezone timezoneOptions={this.timezoneOptions} /> */}
           <User userDropdownOptions={this.userDropdownOptions} />
         </div>
       </div>
