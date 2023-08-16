@@ -24,7 +24,7 @@ const BG_BLUE = '#DFE9F7'
 const BG_WHITE = '#FFFFFF'
 const NODE_BORDER = '#CCCCCC'
 const TITLE = '#333333'
-const STROKE_BLUE = '#288FFF'
+const STROKE_BLUE = '#C50405'
 const NODE_SHADOW = 'drop-shadow(3px 3px 4px rgba(0, 0, 0, 0.2))'
 const EDGE_SHADOW = 'drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2))'
 
