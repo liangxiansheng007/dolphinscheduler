@@ -31,6 +31,7 @@ import org.apache.dolphinscheduler.plugin.task.api.parser.ParamUtils;
 import org.apache.dolphinscheduler.plugin.task.api.parser.ParameterUtils;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +39,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.common.base.Preconditions;
 
@@ -59,8 +62,11 @@ public class PythonTask extends AbstractTask {
     protected TaskExecutionContext taskRequest;
 
     protected static final String PYTHON_HOME = System.getenv("PYTHON_HOME");
-
     private static final String DEFAULT_PYTHON_VERSION = "python";
+
+    private static final String PYTHON_VERSION =
+            System.getenv("PYTHON_VERSION") == null ? DEFAULT_PYTHON_VERSION : System.getenv("PYTHON_VERSION");
+    private static final Pattern PYTHON_PATH_PATTERN = Pattern.compile("/bin/python[\\d.]*$");
 
     /**
      * constructor
@@ -234,9 +240,21 @@ public class PythonTask extends AbstractTask {
     protected String buildPythonExecuteCommand(String pythonFile) {
         Preconditions.checkNotNull(pythonFile, "Python file cannot be null");
 
-        //String pythonHome = String.format("${%s}", PYTHON_HOME);
+        // String pythonHome = String.format("${%s}", PYTHON_HOME);
 
-        return PYTHON_HOME + " " + pythonFile;
+        return getPythonCommand(PYTHON_HOME) + " " + pythonFile;
+    }
+
+    private String getPythonCommand(String pythonHome) {
+        if (StringUtils.isEmpty(pythonHome)) {
+            return PYTHON_VERSION;
+        }
+        String pythonBinPath = "/bin/" + PYTHON_VERSION;
+        Matcher matcher = PYTHON_PATH_PATTERN.matcher(pythonHome);
+        if (matcher.find()) {
+            return matcher.replaceAll(pythonBinPath);
+        }
+        return Paths.get(pythonHome, pythonBinPath).toString();
     }
 
 }

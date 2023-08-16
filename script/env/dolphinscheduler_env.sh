@@ -17,7 +17,7 @@
 
 # JAVA_HOME, will use it to start DolphinScheduler server
 export JAVA_HOME=${JAVA_HOME:-/opt/java/openjdk}
-
+export SECURITY_MODEL_ON_LINUX="true"
 # Database related configuration, set database type, username and password
 export DATABASE=${DATABASE:-postgresql}
 export SPRING_PROFILES_ACTIVE=${DATABASE}
@@ -40,9 +40,12 @@ export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-/opt/soft/hadoop/etc/hadoop}
 export SPARK_HOME1=${SPARK_HOME1:-/opt/soft/spark1}
 export SPARK_HOME2=${SPARK_HOME2:-/opt/soft/spark2}
 export PYTHON_HOME=${PYTHON_HOME:-/opt/soft/python}
+export PYTHON_VERSION=${PYTHON_VERSION:-python}
 export HIVE_HOME=${HIVE_HOME:-/opt/soft/hive}
 export FLINK_HOME=${FLINK_HOME:-/opt/soft/flink}
 export DATAX_HOME=${DATAX_HOME:-/opt/soft/datax}
+export DATAX_PYTHON=${DATAX_PYTHON:-python}
+
 export SEATUNNEL_HOME=${SEATUNNEL_HOME:-/opt/soft/seatunnel}
 export CHUNJUN_HOME=${CHUNJUN_HOME:-/opt/soft/chunjun}
 
